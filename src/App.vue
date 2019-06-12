@@ -1,19 +1,70 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+      <Header/>
+      <b-container class="bv-example-row">
+          <b-row>
+              <b-col sm="6" offset="3">
+                  <QuestionBox 
+                  :currentQuestion="questions[index]"
+                  :next="next"
+                  />
+
+              </b-col>
+          </b-row>
+      </b-container>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import Header from './components/Header.vue';
+import QuestionBox from './components/QuestionBox.vue';
 
 export default Vue.extend({
+
   name: 'app',
   components: {
-    HelloWorld
+     Header,
+      QuestionBox
+
+  },
+  data(){
+
+      return {
+
+        questions:[],
+        index:0
+      }
+  },
+  methods:{
+
+/*
+      next(){
+
+        this.index++
+      }
+  */
+      next: function(){
+
+          this.index++
+      }
+
+
+  },
+  mounted: function(){
+
+    fetch('https://opentdb.com/api.php?amount=10&category=21&difficulty=medium&type=multiple',{
+      method:'get'
+    }).then(res=>{
+      // console.log(res.json)
+      return res.json()
+    }).then(jsonData=>{
+
+          this.questions = jsonData.results
+    })
   }
+
+
 });
 </script>
 
@@ -24,6 +75,6 @@ export default Vue.extend({
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /* margin-top: 60px; */
 }
 </style>
