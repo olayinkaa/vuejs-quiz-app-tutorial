@@ -69,7 +69,7 @@ export default Vue.extend({
 
   mounted: function(){
 
-    fetch('https://opentdb.com/api.php?amount=10&category=21&difficulty=medium&type=multiple',{
+    fetch('https://opentdb.com/api.php?amount=10&category=19&difficulty=medium&type=multiple',{
       method:'get'
     }).then(res=>{
       // console.log(res.json)
